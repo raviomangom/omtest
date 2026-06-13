@@ -3,280 +3,532 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Portal - Clone Template</title>
+    <title>Ultimate Jagran Portal | Ravi Vishwakarma Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- Basic Reset & Variables --- */
+        /* ==========================================
+           COLOR PALETTE & VARIABLES
+           ========================================== */
+        :root {
+            --jagran-red: #d32f2f;
+            --jagran-dark: #0f172a;
+            --bg-light: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --live-box: #dc2626;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        :root {
-            --primary-red: #d32f2f;
-            --dark-gray: #333;
-            --light-bg: #f4f4f4;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
-        /* --- Header & Top Bar --- */
+        body {
+            background-color: #f8fafc;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* ==========================================
+           TOP BAR & HEADER
+           ========================================== */
         .top-bar {
-            background-color: var(--dark-gray);
-            color: white;
-            padding: 5px 20px;
-            font-size: 14px;
+            background-color: var(--jagran-dark);
+            color: #ffffff;
+            padding: 8px 5%;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
-        .header {
-            text-align: center;
-            padding: 20px;
-            background-color: white;
+
+        .main-header {
+            background-color: #ffffff;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
         }
-        .header h1 {
-            color: var(--primary-red);
-            font-size: 40px;
+
+        .logo-area { cursor: pointer; }
+        .logo-area h1 {
+            color: var(--jagran-red);
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
             text-transform: uppercase;
         }
+        .logo-area span {
+            color: var(--jagran-dark);
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: block;
+            margin-top: -5px;
+        }
 
-        /* --- Navbar & Dropdown CSS --- */
-        .navbar {
-            background-color: var(--primary-red);
+        .search-box {
             display: flex;
-            justify-content: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            background-color: #f8fafc;
         }
-        .navbar ul {
-            list-style-type: none;
+        .search-box input {
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 0.9rem;
+            width: 200px;
+        }
+
+        /* ==========================================
+           CSS ANIMATED TICKER (Better than Marquee)
+           ========================================== */
+        .ticker-container {
+            background-color: #ffffff;
+            border-bottom: 2px solid var(--jagran-red);
             display: flex;
-        }
-        .navbar ul li {
+            align-items: center;
+            height: 40px;
+            overflow: hidden;
             position: relative;
         }
-        .navbar ul li a {
-            display: block;
+        .ticker-label {
+            background-color: var(--live-box);
             color: white;
-            text-align: center;
-            padding: 15px 20px;
-            text-decoration: none;
+            padding: 0 20px;
             font-weight: bold;
-        }
-        .navbar ul li a:hover {
-            background-color: #b71c1c;
-        }
-
-        /* Dropdown Logic */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-top: 3px solid var(--primary-red);
-        }
-        .dropdown-content a {
-            color: var(--dark-gray) !important;
-            padding: 12px 16px !important;
-            text-align: left !important;
-            font-weight: normal !important;
-            border-bottom: 1px solid #eee;
-        }
-        .dropdown-content a:hover {
-            background-color: #f1f1f1 !important;
-            color: var(--primary-red) !important;
-        }
-        /* Show dropdown on hover */
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* --- Breaking News Ticker --- */
-        .ticker-wrap {
-            background-color: var(--dark-gray);
-            color: white;
-            padding: 10px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            height: 100%;
             display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 10;
         }
-        .ticker-title {
-            background-color: var(--primary-red);
-            padding: 0 15px;
-            font-weight: bold;
-            margin-right: 15px;
-        }
-        .ticker-move {
+        .ticker-text {
+            flex-grow: 1;
             overflow: hidden;
             white-space: nowrap;
-            width: 100%;
         }
-        .ticker-move p {
-            animation: ticker 15s linear infinite;
+        .ticker-move {
+            display: inline-block;
+            white-space: nowrap;
+            animation: tickerAnim 20s linear infinite;
+            font-weight: 600;
+            color: var(--jagran-red);
+            font-size: 0.95rem;
         }
-        @keyframes ticker {
-            0% { transform: translateX(100%); }
+        .ticker-container:hover .ticker-move {
+            animation-play-state: paused;
+            cursor: pointer;
+        }
+        @keyframes tickerAnim {
+            0% { transform: translateX(100vw); }
             100% { transform: translateX(-100%); }
         }
 
-        /* --- Main Content Grid --- */
-        .container {
-            width: 90%;
-            margin: 20px auto;
-            display: grid;
-            grid-template-columns: 70% 28%;
-            gap: 2%;
+        /* ==========================================
+           NAVIGATION & DROPDOWNS
+           ========================================== */
+        nav {
+            background-color: var(--jagran-red);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .news-card {
-            background: white;
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            padding: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            padding: 0 5%;
         }
-        .news-card h2 {
-            color: var(--dark-gray);
-            margin-bottom: 10px;
-        }
-        .news-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-        .read-more-btn {
-            background-color: var(--primary-red);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-            margin-top: 10px;
+        .nav-item { position: relative; }
+        .nav-link {
+            display: block;
+            padding: 15px 20px;
+            color: #ffffff;
+            text-decoration: none;
             font-weight: bold;
+            font-size: 1.05rem;
+            transition: background 0.2s;
+        }
+        .nav-link:hover { background-color: #991b1b; }
+
+        /* Dropdown Logic */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff;
+            min-width: 200px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            list-style: none;
+            display: none; /* Hidden by default */
+            z-index: 1010;
+            border-top: 3px solid var(--jagran-red);
+        }
+        .dropdown-menu li a {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--jagran-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f1f5f9;
+            transition: all 0.2s;
+        }
+        .dropdown-menu li a:hover {
+            background-color: #f1f5f9;
+            color: var(--jagran-red);
+            padding-left: 25px; /* Slight sliding effect */
+        }
+        .nav-item:hover .dropdown-menu { display: block; } /* Show on hover */
+
+        /* ==========================================
+           MAIN LAYOUT (GRID)
+           ========================================== */
+        .portal-container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
         }
 
-        /* --- Sidebar --- */
-        .sidebar {
-            background: #f9f9f9;
-            padding: 15px;
-            border: 1px solid #ddd;
+        /* Dynamic Page View Controller */
+        .category-view {
+            display: none;
+            flex-direction: column;
+            gap: 25px;
         }
-        .sidebar h3 {
-            border-bottom: 2px solid var(--primary-red);
-            padding-bottom: 5px;
+        .active-view { display: flex; }
+
+        /* News Cards */
+        .hero-story-card, .news-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .hero-image {
+            width: 100%;
+            height: 350px;
+            background-color: #333;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .hero-content, .news-card-content { padding: 25px; }
+        
+        .badge-tag {
+            background-color: var(--jagran-red);
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .story-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--jagran-dark);
             margin-bottom: 15px;
         }
-        .sidebar ul li {
-            margin-bottom: 10px;
-            list-style: none;
-        }
-        .sidebar ul li a {
+
+        .action-btn {
+            background-color: var(--jagran-dark);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
             text-decoration: none;
-            color: var(--dark-gray);
+            display: inline-block;
         }
-        .sidebar ul li a:hover {
-            color: var(--primary-red);
+        .action-btn.red { background-color: var(--jagran-red); }
+        .action-btn:hover { opacity: 0.9; }
+
+        /* ==========================================
+           SIDEBAR WIDGETS
+           ========================================== */
+        .sidebar-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .widget-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .widget-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            border-left: 4px solid var(--jagran-red);
+            padding-left: 10px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
+        /* Firebase Form */
+        .contact-widget-form { display: flex; flex-direction: column; gap: 12px; }
+        .contact-widget-form input, .contact-widget-form textarea {
+            width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px;
+        }
+        .contact-widget-form button {
+            background-color: var(--jagran-red); color: white; border: none; padding: 10px;
+            font-weight: bold; border-radius: 4px; cursor: pointer;
+        }
+
+        footer {
+            background-color: var(--jagran-dark); color: #94a3b8; text-align: center;
+            padding: 30px; margin-top: 50px; border-top: 5px solid var(--jagran-red);
+        }
+
+        @media (max-width: 900px) {
+            .portal-container { grid-template-columns: 1fr; }
+            .nav-menu { overflow-x: auto; }
+        }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <span>Edition: National</span>
-        <span id="live-date"></span>
+        <div><i class="fa-regular fa-calendar-days"></i> <span id="liveDateSlot"></span></div>
+        <div>Edition: National | Ravi Vishwakarma Platform Hub</div>
     </div>
 
-    <div class="header">
-        <h1>Apna Jagran</h1>
-        <p>Aapki Khabar, Aapki Bhasha</p>
+    <header class="main-header">
+        <div class="logo-area" onclick="switchJagranSection('mainDashboard')">
+            <h1>JAGRAN PORTAL</h1>
+            <span>RAVI VISHWAKARMA INNOVATION HUB</span>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="खोजें (Search items)...">
+            <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
+        </div>
+    </header>
+
+    <div class="ticker-container">
+        <div class="ticker-label"><i class="fa-solid fa-circle-radiation"></i> ब्रेकिंग न्यूज़</div>
+        <div class="ticker-text">
+            <div class="ticker-move">
+                🚨 FIFA World Cup 2026 Qualifications Update: Match schedules synced live! &nbsp;&nbsp;|&nbsp;&nbsp; 🔴 T20 World Cup: Bharat ne jeeta match! &nbsp;&nbsp;|&nbsp;&nbsp; ⚡ Naya budget kal hoga pesh, aam aadmi ko mili rahat!
+            </div>
+        </div>
     </div>
 
-    <nav class="navbar">
-        <ul>
-            <li><a href="#" onclick="showHomeAlert()">Home</a></li>
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="#" class="nav-link" onclick="switchJagranSection('mainDashboard')">होम (Home)</a></li>
             
-            <li class="dropdown">
-                <a href="#">Rajya (States) ▼</a>
-                <div class="dropdown-content">
-                    <a href="#">Uttar Pradesh</a>
-                    <a href="#">Bihar</a>
-                    <a href="#">Madhya Pradesh</a>
-                    <a href="#">Delhi</a>
-                </div>
+            <li class="nav-item">
+                <a href="#" class="nav-link">राज्य (States) <i class="fa-solid fa-chevron-down" style="font-size:0.75rem;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Uttar Pradesh</a></li>
+                    <li><a href="#">Bihar</a></li>
+                    <li><a href="#">Delhi</a></li>
+                    <li><a href="#">Maharashtra</a></li>
+                </ul>
             </li>
 
-            <li class="dropdown">
-                <a href="#">Khel (Sports) ▼</a>
-                <div class="dropdown-content">
-                    <a href="#">Cricket</a>
-                    <a href="#">Football</a>
-                    <a href="#">Olympics</a>
-                </div>
+            <li class="nav-item">
+                <a href="#" class="nav-link">खेल (Sports) <i class="fa-solid fa-chevron-down" style="font-size:0.75rem;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Cricket</a></li>
+                    <li><a href="#">Olympics</a></li>
+                    <li><a href="#">Hockey</a></li>
+                </ul>
             </li>
 
-            <li><a href="#">Manoranjan</a></li>
-            <li><a href="#">Business</a></li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">FIFA 2026 <i class="fa-solid fa-chevron-down" style="font-size:0.75rem;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="switchJagranSection('fifaTab1')">Page View 1 (Stadium)</a></li>
+                    <li><a href="#" onclick="switchJagranSection('fifaTab2')">Page View 2 (Analytics)</a></li>
+                    <li><a href="#" onclick="switchJagranSection('fifaTab3')">Page View 3 (Database)</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item"><a href="#" class="nav-link" onclick="switchJagranSection('mainDashboard')">मनोरंजन (Entertainment)</a></li>
         </ul>
     </nav>
 
-    <div class="ticker-wrap">
-        <div class="ticker-title">BREAKING</div>
-        <div class="ticker-move">
-            <p>🔴 T20 World Cup: Bharat ne jeeta romanchak match | 🔴 Naya budget kal hoga pesh, aam aadmi ko mili rahat | 🔴 Mausam vibhag ka alert, kai rajyon mein bhari barish ki sambhavna</p>
-        </div>
-    </div>
-
-    <div class="container">
+    <main class="portal-container">
         
-        <div class="main-news">
-            <div class="news-card">
-                <h2>Desh mein naye vikas karyon ki hui shuruat</h2>
-                <p>Aaj pradhanmantri ne kai nayi yojnao ka shilanyas kiya hai. Isse desh ke infrastructure ko bada boost milega aur rojgari ke naye avsar paida honge...</p>
-                <button class="read-more-btn" onclick="readMoreFunction('News 1')">Pura Padhein</button>
+        <div class="left-content-area">
+            
+            <div id="viewMainDashboard" class="category-view active-view">
+                
+                <div class="hero-story-card">
+                    <div class="hero-image" style="background: linear-gradient(to right, #0f172a, #1e293b);"></div>
+                    <div class="hero-content">
+                        <span class="badge-tag">ट्रेन्डिंग प्रोजेक्ट</span>
+                        <h2 class="story-title">Stationery Management & Vlogging Studio Strategy Blueprints Released</h2>
+                        <p style="color: var(--text-muted); margin-bottom:15px;">Ravi Vishwakarma drops exclusive access logs for the master setup dashboard package complete with database templates.</p>
+                        <a href="#" class="action-btn red" onclick="readMoreAlert('Download Asset Pack')"><i class="fa-solid fa-file-arrow-down"></i> डाउनलोड करें (Assets)</a>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-card-content">
+                        <h2 class="story-title" style="font-size: 1.5rem;">Desh mein naye vikas karyon ki hui shuruat</h2>
+                        <p>Aaj pradhanmantri ne kai nayi yojnao ka shilanyas kiya hai. Isse desh ke infrastructure ko bada boost milega...</p>
+                        <br>
+                        <button class="action-btn" onclick="readMoreAlert('Vikas Karya')">पूरा पढ़ें (Read More)</button>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="news-card">
-                <h2>Share Market mein aaj bhari uchhal</h2>
-                <p>Sensex aur Nifty ne aaj naye records banaye. IT aur Banking sectors ke shares mein sabse zyada tezi dekhi gayi. Niveshak kafi khush nazar aaye...</p>
-                <button class="read-more-btn" onclick="readMoreFunction('News 2')">Pura Padhein</button>
+            <div id="viewFifaTab1" class="category-view">
+                <div class="hero-story-card" style="padding:40px; text-align:center;">
+                    <h2 class="story-title" style="color:var(--jagran-red);">🔴 FIFA 2026 - प्रथम पृष्ठ (Stadiums)</h2>
+                    <p style="margin:20px 0; color:var(--text-muted);">Yeh FIFA Ka Pehla Main Channel Dashboard Layout Hai.</p>
+                    <div style="background:#f8fafc; padding:20px; border:1px solid var(--border-color); font-weight:bold;">⚽ Stadium Mapping & Ticket Routing Node Active</div>
+                </div>
             </div>
+
+            <div id="viewFifaTab2" class="category-view">
+                <div class="hero-story-card" style="padding:40px; text-align:center;">
+                    <h2 class="story-title" style="color:#2563eb;">🔵 FIFA 2026 - द्वितीय पृष्ठ (Analytics)</h2>
+                    <p style="margin:20px 0; color:var(--text-muted);">Operational analytical updates rendered exclusively here.</p>
+                    <div style="background:#f8fafc; padding:20px; border:1px solid var(--border-color); font-weight:bold;">📊 Match Metrics Analytics Sheet active</div>
+                </div>
+            </div>
+
+            <div id="viewFifaTab3" class="category-view">
+                <div class="hero-story-card" style="padding:40px; text-align:center;">
+                    <h2 class="story-title" style="color:#16a34a;">🟢 FIFA 2026 - तृतीय पृष्ठ (Database)</h2>
+                    <p style="margin:20px 0; color:var(--text-muted);">Database synchronization structures terminal.</p>
+                    <div style="background:#f8fafc; padding:20px; border:1px solid var(--border-color); font-weight:bold;">⚙️ Cloud Firestore Clusters Status: Healthy</div>
+                </div>
+            </div>
+
         </div>
 
-        <div class="sidebar">
-            <h3>Top Trending News</h3>
-            <ul>
-                <li><a href="#">👉 Petrol-Diesel ke naye daam jaari</a></li>
-                <li><a href="#">👉 Bollywood ki nayi film ka trailer release</a></li>
-                <li><a href="#">👉 Chandrayaan mission par nayi update</a></li>
-                <li><a href="#">👉 Sone (Gold) ki kimaton mein girawat</a></li>
-            </ul>
-        </div>
+        <aside class="sidebar-panel">
+            
+            <div class="widget-box">
+                <div class="widget-title">मोस्ट रीड (Trending Stories)</div>
+                <ul style="list-style: none;">
+                    <li style="padding-bottom:10px; border-bottom:1px dashed #ccc; margin-bottom:10px;">
+                        <a href="#" style="text-decoration:none; color:var(--text-main); font-weight:600;">👉 Ravi Vishwakarma cloud template hits peak downloads.</a>
+                    </li>
+                    <li style="padding-bottom:10px; border-bottom:1px dashed #ccc; margin-bottom:10px;">
+                        <a href="#" style="text-decoration:none; color:var(--text-main); font-weight:600;">👉 Petrol-Diesel ke naye daam jaari.</a>
+                    </li>
+                    <li style="padding-bottom:10px;">
+                        <a href="#" style="text-decoration:none; color:var(--text-main); font-weight:600;">👉 Share Market mein aaj bhari uchhal, Sensex naye record par.</a>
+                    </li>
+                </ul>
+            </div>
 
-    </div>
+            <div class="widget-box">
+                <div class="widget-title">सूचना केंद्र (Send Query)</div>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Direct instant data transmission to your real-time project console.</p>
+                <form class="contact-widget-form" id="firebaseContactForm">
+                    <input type="text" id="userName" placeholder="आपका नाम (Your Name)" required>
+                    <input type="email" id="userEmail" placeholder="ईमेल (Your Email)" required>
+                    <textarea id="userMessage" rows="3" placeholder="संदेश (Your Message Here...)" required></textarea>
+                    <button type="submit" id="submitBtn">डेटा भेजें (Send Secure Payload)</button>
+                </form>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <footer>
+        <p>Copyright © 2026 Ravi Vishwakarma Portal Hub · Ultimate Jagran Infrastructure</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // Function 1: Live Date & Time display
-        function updateDate() {
-            const dateElement = document.getElementById("live-date");
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            dateElement.innerHTML = now.toLocaleDateString('hi-IN', options);
-        }
-
-        // Function 2: Interaction alert for Read More button
-        function readMoreFunction(articleName) {
-            alert("Aap '" + articleName + "' ka poora article padhne ke liye naye page par redirect ho rahe hain.");
-            // Actual site par yahan window.location.href = 'article-url.html' hota hai
-        }
-
-        // Function 3: Simple Home Alert
-        function showHomeAlert() {
-            console.log("Home button clicked");
-        }
-
-        // Initialize functions jab page load ho
+        // FUNCTION 1: Live Date Setup
         window.onload = function() {
-            updateDate();
-            // Yahan hum aur bhi complex JS functions add kar sakte hain jaise API calls se live news fetch karna.
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('liveDateSlot').innerText = new Date().toLocaleDateString('hi-IN', options);
         };
-    </script>
 
+        // FUNCTION 2: Dynamic View Routing (SPA Logic)
+        function switchJagranSection(targetSectionId) {
+            // Hide all views
+            const views = document.querySelectorAll('.category-view');
+            views.forEach(v => v.classList.remove('active-view'));
+
+            // Show target view
+            const target = document.getElementById('view' + targetSectionId.charAt(0).toUpperCase() + targetSectionId.slice(1));
+            if(target) {
+                target.classList.add('active-view');
+            }
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // FUNCTION 3: Simple Interaction Alert
+        function readMoreAlert(article) {
+            alert("Aap '" + article + "' section ko open karne ke liye aage badh rahe hain.");
+        }
+
+        // FUNCTION 4: Firebase Configuration & Submission
+        const firebaseConfig = {
+            apiKey: "AIzaSyA4xhSb9Q0_64vavJ9HPPhH8UPWnie6TRg",
+            authDomain: "data1-430a9.firebaseapp.com",
+            projectId: "data1-430a9",
+            storageBucket: "data1-430a9.firebasestorage.app",
+            messagingSenderId: "899412092399",
+            appId: "1:899412092399:web:b9a7911174ffdbbdc2021a",
+            measurementId: "G-676R1N188Y"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        document.getElementById('firebaseContactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "सुरक्षित भेजा जा रहा है...";
+            btn.disabled = true;
+
+            db.collection('contact_messages').add({
+                name: document.getElementById('userName').value,
+                email: document.getElementById('userEmail').value,
+                message: document.getElementById('userMessage').value,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+                alert('🎉 संदेश सफलतापूर्वक क्लाउड डेटाबेस में सहेज लिया गया है!');
+                document.getElementById('firebaseContactForm').reset(); 
+            })
+            .catch((error) => {
+                console.error("Transmission error logged: ", error);
+                alert('❌ डेटा भेजने में त्रुटि! कृपया फायरबेस नियमों की जांच करें।');
+            })
+            .finally(() => {
+                btn.innerText = "डेटा भेजें (Send Secure Payload)";
+                btn.disabled = false;
+            });
+        });
+    </script>
 </body>
 </html>
