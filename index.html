@@ -6,10 +6,12 @@
     <title>Ravi Vishwakarma | Premium Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS Variables */
+        /* Modern UI Color Variables */
         :root {
             --nav-bg: #ffffff;
             --nav-text: #000000;
+            --dropdown-bg: #f4f6fa; /* Light premium background like image_e0c69a */
+            --dropdown-text: #1e293b;
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-color: #1e293b;
@@ -24,7 +26,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Times New Roman', Georgia, serif; /* Premium classic font matching your image */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         html {
@@ -35,11 +37,11 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            padding-top: 60px; /* Space for fixed navbar */
+            padding-top: 60px;
         }
 
         /* ==========================================
-           EXACT MATCH HEADER STYLE (image_e0d1ff.png)
+           EXACT MATCH HEADER & DROPDOWN (image_e0c69a)
            ========================================== */
         nav {
             background-color: var(--nav-bg);
@@ -52,10 +54,8 @@
             padding: 0 30px;
             height: 60px;
             border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
-        /* Left Controls: Hamburger & Search */
         .nav-left {
             display: flex;
             align-items: center;
@@ -74,16 +74,12 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            font-family: 'Segoe UI', sans-serif;
             font-size: 0.95rem;
             color: var(--nav-text);
+            font-weight: 500;
         }
 
-        .search-container i {
-            font-size: 1.1rem;
-        }
-
-        /* Center/Right Main Menu Links */
+        /* Main Navigation Links Layout */
         .nav-menu {
             display: flex;
             list-style: none;
@@ -91,16 +87,15 @@
             align-items: center;
             width: 100%;
             justify-content: flex-start;
-            gap: 28px;
-            overflow-x: auto; /* Mobile/Tablet scroll support */
-            scrollbar-width: none; /* Hide scrollbar */
+            gap: 24px;
+            overflow-x: auto;
+            scrollbar-width: none;
         }
 
         .nav-menu::-webkit-scrollbar {
             display: none;
         }
 
-        /* Individual Dropdown Item Wrapper */
         .nav-item {
             position: relative;
             height: 100%;
@@ -111,56 +106,81 @@
         .nav-link {
             text-decoration: none;
             color: var(--nav-text);
-            font-weight: bold;
-            font-size: 1.15rem;
+            font-weight: 700; /* Bold font style matching your image */
+            font-size: 1.1rem;
             white-space: nowrap;
-            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px; /* Space between text and arrow */
+            transition: color 0.2s;
         }
 
-        .nav-link:hover {
-            opacity: 0.7;
+        /* Dropdown Down Arrow Icon Style */
+        .dropdown-arrow {
+            font-size: 0.75rem;
+            transition: transform 0.3s ease;
+            color: #64748b;
         }
 
-        /* Dropdown Scroll-down Sections (5 Links Each) */
+        /* PREMIUM ROUNDED DROPDOWN BOX (As seen in image_e0c69a.png) */
         .dropdown-menu {
             position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #ffffff;
-            min-width: 200px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border: 1px solid var(--border-color);
+            top: 85%; /* Slightly below header */
+            left: -10px;
+            background-color: var(--dropdown-bg);
+            min-width: 220px;
+            border-radius: 16px; /* Exact match high rounding */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12); /* Smooth fluid shadow */
             list-style: none;
-            padding: 10px 0;
-            display: none; /* Hidden by default */
+            padding: 15px; /* Comfortable spacing inside card */
+            display: none; 
             z-index: 1010;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .dropdown-menu li {
+            width: 100%;
         }
 
         .dropdown-menu li a {
             display: block;
-            padding: 10px 20px;
+            padding: 10px 15px;
             text-decoration: none;
-            color: #333333;
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 0.95rem;
+            color: var(--dropdown-text);
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 8px;
             transition: background 0.2s, color 0.2s;
         }
 
+        /* Hover effect on dropdown links */
         .dropdown-menu li a:hover {
-            background-color: #f1f5f9;
+            background-color: rgba(0, 0, 0, 0.05);
             color: #0284c7;
         }
 
-        /* Show Dropdown on Hover */
+        /* SHOW DROPDOWN ON HOVER WITH EFFECTS */
         .nav-item:hover .dropdown-menu {
             display: block;
+            animation: slideIn 0.2s ease forwards;
+        }
+
+        /* Rotate arrow up when dropdown is active */
+        .nav-item:hover .dropdown-arrow {
+            transform: rotate(180deg);
+            color: var(--nav-text);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ==========================================
-           Page Sections & Content Layout
+           Page Content Sections & Layout Styles
            ========================================== */
         section {
-            min-height: 90vh;
+            min-height: 80vh;
             padding: 80px 10%;
             display: flex;
             flex-direction: column;
@@ -179,7 +199,6 @@
             color: var(--gray-text);
             max-width: 600px;
             margin: 0 auto 40px auto;
-            font-family: 'Segoe UI', sans-serif;
             font-size: 1.05rem;
         }
 
@@ -193,7 +212,7 @@
             color: #0f172a;
         }
 
-        /* Premium Grid (Omangom Functionality) */
+        /* Omangom Functionality Resource Grid */
         .functional-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -262,7 +281,6 @@
 
         .card-content p {
             color: var(--gray-text);
-            font-family: 'Segoe UI', sans-serif;
             font-size: 0.95rem;
             margin-bottom: 15px;
         }
@@ -274,7 +292,6 @@
             padding: 10px;
             border-radius: 6px;
             text-decoration: none;
-            font-family: 'Segoe UI', sans-serif;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -282,7 +299,7 @@
             gap: 8px;
         }
 
-        /* Firebase Contact Form */
+        /* Firebase Contact Form Design */
         .contact-form {
             display: flex;
             flex-direction: column;
@@ -296,7 +313,6 @@
             border: 1px solid var(--border-color);
             border-radius: 6px;
             font-size: 1rem;
-            font-family: 'Segoe UI', sans-serif;
         }
 
         .contact-form button {
@@ -308,7 +324,6 @@
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            font-family: 'Segoe UI', sans-serif;
         }
 
         footer {
@@ -316,14 +331,11 @@
             color: #94a3b8;
             text-align: center;
             padding: 30px;
-            font-family: 'Segoe UI', sans-serif;
         }
 
-        /* Mobile Adjustments */
         @media (max-width: 768px) {
             nav { padding: 0 15px; }
             .nav-menu { gap: 18px; }
-            .nav-link { font-size: 1rem; }
             section { padding: 60px 5%; }
         }
     </style>
@@ -341,7 +353,7 @@
 
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="#" class="nav-link">India</a>
+                <a href="#" class="nav-link">India <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">National News</a></li>
                     <li><a href="#">Politics</a></li>
@@ -351,7 +363,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">World</a>
+                <a href="#" class="nav-link">World <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Americas</a></li>
                     <li><a href="#">Europe</a></li>
@@ -361,7 +373,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Sport</a>
+                <a href="#" class="nav-link">Sport <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Cricket</a></li>
                     <li><a href="#">Football</a></li>
@@ -372,7 +384,7 @@
             </li>
             
             <li class="nav-item">
-                <a href="#" class="nav-link">FIFA 2026</a>
+                <a href="#" class="nav-link">FIFA 2026 <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">1</a></li>
                     <li><a href="#">2</a></li>
@@ -383,7 +395,7 @@
             </li>
             
             <li class="nav-item">
-                <a href="#" class="nav-link">Data</a>
+                <a href="#" class="nav-link">Data <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Infographics</a></li>
                     <li><a href="#">Market Trends</a></li>
@@ -393,7 +405,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Health</a>
+                <a href="#" class="nav-link">Health <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Fitness & Gym</a></li>
                     <li><a href="#">Nutrition & Diet</a></li>
@@ -403,7 +415,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Opinion</a>
+                <a href="#" class="nav-link">Opinion <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Editorials</a></li>
                     <li><a href="#">Expert Columns</a></li>
@@ -413,7 +425,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Science</a>
+                <a href="#" class="nav-link">Science <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Space Exploration</a></li>
                     <li><a href="#">Environment & Climate</a></li>
@@ -423,7 +435,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Entertainment</a>
+                <a href="#" class="nav-link">Entertainment <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Movies & Reviews</a></li>
                     <li><a href="#">Web Series</a></li>
@@ -437,12 +449,12 @@
 
     <section id="home">
         <h1>Welcome to My Premium Portal</h1>
-        <p class="section-subtitle">A professional space built for creator resources, modern downloads, and real-time operations.</p>
+        <p class="section-subtitle">A high-end functional resource hub crafted beautifully with dynamic interaction modules.</p>
     </section>
 
     <section id="resources">
         <h2 class="section-title">Latest Project Materials</h2>
-        <p class="section-subtitle">Click the play icon to watch the video, or hit download to grab the resource package.</p>
+        <p class="section-subtitle">Watch the linked video tutorials and download project assets straight to your local system.</p>
         
         <div class="functional-grid">
             <div class="func-card">
@@ -453,8 +465,8 @@
                 </div>
                 <div class="card-content">
                     <div>
-                        <h3>Stationery Management & Vlogging Setup</h3>
-                        <p>Get all premium stock management tools, presets, and link assets completely free.</p>
+                        <h3>Stationery Management & Studio Setup</h3>
+                        <p>Download the exclusive premium asset bundle containing management mockups and file systems.</p>
                     </div>
                     <a href="materials_pack.zip" download class="download-link">
                         <i class="fa-solid fa-download"></i> Download Assets (ZIP)
@@ -466,7 +478,7 @@
 
     <section id="contact">
         <h2 class="section-title">Get In Touch</h2>
-        <p class="section-subtitle">Any queries? Send a text straight to my Firebase backend dashboard.</p>
+        <p class="section-subtitle">Any queries? Drop a note below to sync direct with your Firebase backend panel.</p>
         
         <form class="contact-form" id="firebaseContactForm">
             <input type="text" id="userName" placeholder="Your Name" required>
@@ -515,12 +527,12 @@
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             })
             .then(() => {
-                alert('🎉 Message captured successfully in data1-430a9 project!');
+                alert('🎉 Message captured successfully in your data1-430a9 project dashboard!');
                 document.getElementById('firebaseContactForm').reset(); 
             })
             .catch((error) => {
-                console.error("Error: ", error);
-                alert('❌ Error saving data. Make sure rules are set to test mode.');
+                console.error("Error operational: ", error);
+                alert('❌ Transmission Error. Please verify Cloud Rules are active.');
             })
             .finally(() => {
                 btn.innerText = "Send Message";
