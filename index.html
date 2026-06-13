@@ -3,311 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ravi Vishwakarma | Blogger</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Netflix Clone | One Page</title>
     <style>
-        /* Light Theme CSS Variables */
+        /* Variables */
         :root {
-            --bg-color: #f9f9f9;
-            --text-color: #333333;
-            --accent-color: #3498db;
-            --card-bg: #ffffff;
-            --gray-text: #777777;
+            --netflix-red: #e50914;
+            --bg-color: #141414;
+            --text-color: #ffffff;
         }
 
-        /* Reset & Base Styles */
+        /* Basic Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth; /* Smooth scrolling for the 5 sections */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Navigation Bar */
         nav {
-            background-color: var(--card-bg);
+            position: absolute;
+            top: 0;
+            width: 100%;
             padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 10;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
         }
 
         .logo {
-            font-size: 1.5rem;
+            color: var(--netflix-red);
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .sign-in-btn {
+            background-color: var(--netflix-red);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
             font-weight: bold;
-            color: var(--text-color);
-            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.3s;
         }
 
-        .logo span {
-            color: var(--accent-color);
+        .sign-in-btn:hover {
+            background-color: #f40612;
         }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Section Layout */
-        section {
-            min-height: 100vh;
-            padding: 100px 10%;
+        /* Hero Section (Banner) */
+        .hero {
+            height: 80vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); /* Demo Movie Background */
+            background-size: cover;
+            background-position: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 0 20px;
+            border-bottom: 8px solid #222;
         }
 
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--text-color);
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--accent-color);
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-
-        p {
-            color: var(--gray-text);
-            max-width: 700px;
-            margin: 0 auto 30px auto;
-            font-size: 1.1rem;
-        }
-
-        /* 1. Home Page / Hero */
-        #home {
-            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-        }
-
-        #home h1 {
+        .hero h1 {
             font-size: 4rem;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            background-color: var(--accent-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #2980b9;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
-        }
-
-        /* 3. Blog Layout */
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            width: 100%;
-            margin-top: 40px;
-        }
-
-        .blog-card {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: left;
-            transition: transform 0.3s;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .blog-card h3 {
-            margin-bottom: 10px;
-            color: var(--text-color);
-        }
-
-        .read-more {
-            color: var(--accent-color);
-            text-decoration: none;
+            max-width: 800px;
+            margin-bottom: 15px;
             font-weight: bold;
         }
 
-        /* 5. Contact Form */
-        .contact-form {
+        .hero h2 {
+            font-size: 1.5rem;
+            font-weight: normal;
+            margin-bottom: 25px;
+        }
+
+        .email-form {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            gap: 0;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
         }
 
-        .contact-form input, .contact-form textarea {
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
+        .email-form input {
+            flex: 1;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 1px solid #8c8c8c;
+            border-radius: 4px 0 0 4px;
+            background: rgba(0,0,0,0.5);
+            color: white;
         }
 
-        .contact-form button {
-            padding: 15px;
-            background-color: var(--accent-color);
+        .email-form button {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            background-color: var(--netflix-red);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            border-radius: 0 4px 4px 0;
+            font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .contact-form button:hover {
-            background-color: #2980b9;
+        .email-form button:hover {
+            background-color: #f40612;
         }
 
-        /* Footer & Social Icons */
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
+        /* Movie Rows Container */
+        .movie-section {
+            padding: 30px 50px;
         }
 
-        .social-icons {
-            margin: 20px 0;
-        }
-
-        .social-icons a {
-            color: white;
+        .row-title {
             font-size: 1.5rem;
-            margin: 0 10px;
-            transition: color 0.3s;
+            margin-bottom: 15px;
+            font-weight: bold;
         }
 
-        .social-icons a:hover {
-            color: var(--accent-color);
+        /* Horizontal Scrolling */
+        .row-posters {
+            display: flex;
+            gap: 15px;
+            overflow-y: hidden;
+            overflow-x: scroll;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Hide Scrollbar for clean look */
+        .row-posters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .poster {
+            min-width: 200px;
+            height: 300px;
+            background: linear-gradient(45deg, #333, #555); /* Placeholder background */
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-end;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .poster:hover {
+            transform: scale(1.08); /* Zoom effect on hover */
+        }
+
+        .poster h3 {
+            font-size: 1.2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* Different placeholder colors for movies */
+        .p1 { background: linear-gradient(to top, #111, #e74c3c); }
+        .p2 { background: linear-gradient(to top, #111, #2980b9); }
+        .p3 { background: linear-gradient(to top, #111, #8e44ad); }
+        .p4 { background: linear-gradient(to top, #111, #27ae60); }
+        .p5 { background: linear-gradient(to top, #111, #f39c12); }
+        .p6 { background: linear-gradient(to top, #111, #16a085); }
+
+        /* Footer */
+        footer {
+            padding: 50px;
+            color: #757575;
+            text-align: center;
+            border-top: 8px solid #222;
         }
 
         /* Mobile View */
         @media (max-width: 768px) {
-            nav { flex-direction: column; padding: 15px; gap: 15px; }
-            #home h1 { font-size: 2.5rem; }
-            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero h2 { font-size: 1.2rem; }
+            .email-form { flex-direction: column; gap: 10px; }
+            .email-form input, .email-form button { border-radius: 4px; }
+            nav, .movie-section { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#home" class="logo">Ravi's <span>Blog</span></a>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#blog">Articles</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+        <a href="#" class="logo">NETFLIX</a>
+        <a href="#" class="sign-in-btn">Sign In</a>
     </nav>
 
-    <section id="home">
-        <h1>Welcome to My World</h1>
-        <p>A minimalist light theme blog where I share my thoughts, coding tutorials, and tech experiences with the world.</p>
-        <a href="#blog" class="btn">Read My Articles</a>
-    </section>
-
-    <section id="about" style="background-color: white;">
-        <h2 class="section-title">About Me</h2>
-        <p>Hi, I'm Ravi Vishwakarma. I am a passionate web developer and blogger. I love exploring new technologies and writing about web design, CSS tricks, and everything tech. This blog is my creative outlet to share what I learn.</p>
-    </section>
-
-    <section id="blog">
-        <h2 class="section-title">Latest Articles</h2>
-        <p>Catch up on my latest tips and tutorials.</p>
+    <div class="hero">
+        <h1>Unlimited movies, TV shows and more.</h1>
+        <h2>Watch anywhere. Cancel anytime.</h2>
+        <p style="margin-bottom: 15px; font-size: 1.2rem;">Ready to watch? Enter your email to create or restart your membership.</p>
         
-        <div class="blog-grid">
-            <div class="blog-card">
-                <h3>Getting Started with HTML5</h3>
-                <p>Learn the basics of semantic HTML and how it helps SEO and accessibility...</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
-            <div class="blog-card">
-                <h3>Mastering CSS Flexbox</h3>
-                <p>A complete guide to aligning items perfectly using modern CSS Flexbox...</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
-            <div class="blog-card">
-                <h3>Why Web Design Matters</h3>
-                <p>How clean UI/UX can drastically improve user retention on your site...</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery" style="background-color: white;">
-        <h2 class="section-title">My Gallery</h2>
-        <p>A showcase of my recent coding projects and website designs.</p>
-        <div class="blog-grid">
-            <div class="blog-card" style="text-align: center; padding: 40px;">Project 1 Image</div>
-            <div class="blog-card" style="text-align: center; padding: 40px;">Project 2 Image</div>
-            <div class="blog-card" style="text-align: center; padding: 40px;">Project 3 Image</div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2 class="section-title">Get In Touch</h2>
-        <p>Have a question or want to work together? Drop a message below!</p>
-        
-        <form class="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
+        <form class="email-form">
+            <input type="email" placeholder="Email address" required>
+            <button type="submit">Get Started ></button>
         </form>
-    </section>
+    </div>
+
+    <div class="movie-section">
+        <h2 class="row-title">Trending Now</h2>
+        <div class="row-posters">
+            <div class="poster p1"><h3>Action Movie</h3></div>
+            <div class="poster p2"><h3>Sci-Fi Series</h3></div>
+            <div class="poster p3"><h3>Drama</h3></div>
+            <div class="poster p4"><h3>Comedy Special</h3></div>
+            <div class="poster p5"><h3>Thriller</h3></div>
+            <div class="poster p6"><h3>Horror</h3></div>
+            <div class="poster p1"><h3>Romance</h3></div>
+        </div>
+    </div>
+
+    <div class="movie-section">
+        <h2 class="row-title">Top Picks for You</h2>
+        <div class="row-posters">
+            <div class="poster p6"><h3>Documentary</h3></div>
+            <div class="poster p5"><h3>Anime</h3></div>
+            <div class="poster p4"><h3>Adventure</h3></div>
+            <div class="poster p3"><h3>Crime</h3></div>
+            <div class="poster p2"><h3>Fantasy</h3></div>
+            <div class="poster p1"><h3>Mystery</h3></div>
+            <div class="poster p6"><h3>Kids Show</h3></div>
+        </div>
+    </div>
 
     <footer>
-        <h3>Connect with me</h3>
-        <div class="social-icons">
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="#"><i class="fa-brands fa-github"></i></a>
-        </div>
-        <p>&copy; 2026 Ravi Vishwakarma. All Rights Reserved.</p>
+        <p>Questions? Call 000-800-040-1843</p>
+        <p style="margin-top: 15px;">&copy; 2026 Netflix Clone by Ravi Vishwakarma</p>
     </footer>
 
 </body>
