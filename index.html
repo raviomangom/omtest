@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ravi Vishwakarma | Portfolio</title>
+    <style>
+        /* CSS Variables for easy color changes */
+        :root {
+            --primary-color: #00ffcc; /* Neon Cyan */
+            --bg-color: #0f0f13;
+            --text-color: #ffffff;
+            --secondary-text: #a0a0a0;
+        }
+
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% -20%, #2a2a35, transparent);
+        }
+
+        /* Main Typography */
+        h1 {
+            font-size: 4rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 span {
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+        }
+
+        /* Call to Action Button */
+        .btn {
+            padding: 15px 40px;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .btn:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 25px var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        /* Simple Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Hi, I'm <span>Ravi Vishwakarma</span></h1>
+    
+    <p>Welcome to my digital space. I build modern, responsive, and highly interactive web experiences. Turning cool ideas into reality through clean code and great design.</p>
+    
+    <div class="skills-container">
+        <div class="skill-tag">HTML5</div>
+        <div class="skill-tag">CSS3</div>
+        <div class="skill-tag">JavaScript</div>
+        <div class="skill-tag">Web Design</div>
+    </div>
+
+    <a href="#" class="btn">Let's Talk</a>
+
+</body>
+</html>
