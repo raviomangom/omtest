@@ -24,7 +24,7 @@
         }
 
         html {
-            scroll-behavior: smooth; /* Smooth scrolling for the 5 sections */
+            scroll-behavior: smooth;
         }
 
         body {
@@ -290,11 +290,11 @@
         <h2 class="section-title">Get In Touch</h2>
         <p>Have a question or want to work together? Drop a message below!</p>
         
-        <form class="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
+        <form class="contact-form" id="firebaseContactForm">
+            <input type="text" id="userName" placeholder="Your Name" required>
+            <input type="email" id="userEmail" placeholder="Your Email" required>
+            <textarea rows="5" id="userMessage" placeholder="Your Message" required></textarea>
+            <button type="submit" id="submitBtn">Send Message</button>
         </form>
     </section>
 
@@ -310,5 +310,57 @@
         <p>&copy; 2026 Ravi Vishwakarma. All Rights Reserved.</p>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Aapka direct project configuration data
+        const firebaseConfig = {
+            apiKey: "AIzaSyA4xhSb9Q0_64vavJ9HPPhH8UPWnie6TRg",
+            authDomain: "data1-430a9.firebaseapp.com",
+            projectId: "data1-430a9",
+            storageBucket: "data1-430a9.firebasestorage.app",
+            messagingSenderId: "899412092399",
+            appId: "1:899412092399:web:b9a7911174ffdbbdc2021a",
+            measurementId: "G-676R1N188Y"
+        };
+
+        // Firebase Initialize karein
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Form Submission logic
+        document.getElementById('firebaseContactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "Sending...";
+            btn.disabled = true;
+
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+            const message = document.getElementById('userMessage').value;
+
+            // 'contact_messages' folder (collection) me data save hoga
+            db.collection('contact_messages').add({
+                name: name,
+                email: email,
+                message: message,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+                alert('🎉 Message successfully sent to data1-430a9 Firebase project!');
+                document.getElementById('firebaseContactForm').reset(); 
+            })
+            .catch((error) => {
+                console.error("Firebase Error: ", error);
+                alert('❌ Database Error: Make sure Firestore rules are set to Test Mode.');
+            })
+            .finally(() => {
+                btn.innerText = "Send Message";
+                btn.disabled = false;
+            });
+        });
+    </script>
 </body>
 </html>
