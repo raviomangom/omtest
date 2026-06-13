@@ -3,654 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ravi Vishwakarma | Jagran News Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>News Portal - Clone Template</title>
     <style>
-        /* Jagran.com Authentic Color Palette */
-        :root {
-            --jagran-red: #b91c1c;
-            --jagran-dark: #0f172a;
-            --bg-light: #f1f5f9;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #cbd5e1;
-            --live-box: #dc2626;
-        }
-
+        /* --- Basic Reset & Variables --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+        }
+        :root {
+            --primary-red: #d32f2f;
+            --dark-gray: #333;
+            --light-bg: #f4f4f4;
         }
 
-        body {
-            background-color: #f8fafc;
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-
-        /* ==========================================
-           TOP BAR & BREAKING NEWS TICKER
-           ========================================== */
+        /* --- Header & Top Bar --- */
         .top-bar {
-            background-color: var(--jagran-dark);
-            color: #ffffff;
-            padding: 8px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .ticker-container {
-            background-color: #ffffff;
-            border-bottom: 2px solid var(--jagran-red);
-            display: flex;
-            align-items: center;
-            padding: 0 5%;
-            height: 40px;
-            overflow: hidden;
-        }
-
-        .ticker-label {
-            background-color: var(--live-box);
+            background-color: var(--dark-gray);
             color: white;
-            padding: 4px 12px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            white-space: nowrap;
-            position: relative;
-            z-index: 10;
-        }
-
-        .ticker-text {
-            width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            padding-left: 20px;
-        }
-
-        .ticker-text marquee {
-            font-weight: 600;
-            color: var(--jagran-red);
-            font-size: 0.95rem;
-            cursor: pointer;
-        }
-
-        /* ==========================================
-           MAIN LOGO HEADER & NAVIGATION
-           ========================================== */
-        .main-header {
-            background-color: #ffffff;
-            padding: 20px 5%;
+            padding: 5px 20px;
+            font-size: 14px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+        }
+        .header h1 {
+            color: var(--primary-red);
+            font-size: 40px;
+            text-transform: uppercase;
         }
 
-        .logo-area h1 {
-            color: var(--jagran-red);
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: -1px;
-        }
-
-        .logo-area span {
-            color: var(--jagran-dark);
-            font-size: 0.9rem;
-            font-weight: bold;
-            display: block;
-            margin-top: -5px;
-        }
-
-        .search-box {
+        /* --- Navbar & Dropdown CSS --- */
+        .navbar {
+            background-color: var(--primary-red);
             display: flex;
-            align-items: center;
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 20px;
-            background-color: #f8fafc;
-        }
-
-        .search-box input {
-            border: none;
-            background: none;
-            outline: none;
-            font-size: 0.9rem;
-            width: 200px;
-        }
-
-        /* Jagran Style Full Menu */
-        nav {
-            background-color: var(--jagran-red);
+            justify-content: center;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
-        .nav-menu {
+        .navbar ul {
+            list-style-type: none;
             display: flex;
-            list-style: none;
-            padding: 0 5%;
-            overflow-x: auto;
-            scrollbar-width: none;
         }
-
-        .nav-menu::-webkit-scrollbar { display: none; }
-
-        .nav-item { position: relative; }
-
-        .nav-link {
-            display: block;
-            padding: 15px 20px;
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.05rem;
-            white-space: nowrap;
-            transition: background 0.2s;
-        }
-
-        .nav-link:hover {
-            background-color: #991b1b;
-        }
-
-        /* Rounded Premium Dropdown Box matching your image specs */
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #ffffff;
-            min-width: 180px;
-            border-radius: 0 0 12px 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            list-style: none;
-            padding: 10px 0;
-            display: none;
-            z-index: 1010;
-        }
-
-        .dropdown-menu li a {
-            display: block;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: var(--jagran-dark);
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: background 0.2s;
-        }
-
-        .dropdown-menu li a:hover {
-            background-color: #f1f5f9;
-            color: var(--jagran-red);
-        }
-
-        .nav-item:hover .dropdown-menu { display: block; }
-
-        /* ==========================================
-           JAGRAN THREE-COLUMN PORTAL LAYOUT
-           ========================================== */
-        .portal-container {
-            max-width: 1300px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        /* Dynamic Page Section Controller Views */
-        .category-view {
-            display: none;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .active-view { display: flex; }
-
-        /* Jagran Main Hero Big Story Card */
-        .hero-story-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 25px;
-        }
-
-        .hero-image {
-            width: 100%;
-            height: 400px;
-            background-size: cover;
-            background-position: center;
+        .navbar ul li {
             position: relative;
         }
-
-        .video-btn-play {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            background-color: var(--jagran-red);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .hero-content { padding: 25px; }
-        .badge-tag {
-            background-color: var(--jagran-red);
-            color: white;
-            padding: 3px 10px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 4px;
-        }
-
-        .story-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--jagran-dark);
-            margin: 12px 0;
-            line-height: 1.3;
-        }
-
-        /* News Sub-Grid Elements */
-        .news-sub-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .news-mini-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mini-thumb {
-            width: 100%;
-            height: 160px;
-            background-size: cover;
-            background-position: center;
-            background-color: #cbd5e1;
-        }
-
-        .mini-content {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: space-between;
-        }
-
-        .mini-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--jagran-dark);
-            margin-bottom: 10px;
-        }
-
-        .download-action-btn {
-            background-color: var(--jagran-dark);
+        .navbar ul li a {
+            display: block;
             color: white;
             text-align: center;
-            padding: 8px;
-            border-radius: 4px;
+            padding: 15px 20px;
             text-decoration: none;
-            font-size: 0.85rem;
             font-weight: bold;
+        }
+        .navbar ul li a:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Dropdown Logic */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-top: 3px solid var(--primary-red);
+        }
+        .dropdown-content a {
+            color: var(--dark-gray) !important;
+            padding: 12px 16px !important;
+            text-align: left !important;
+            font-weight: normal !important;
+            border-bottom: 1px solid #eee;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1 !important;
+            color: var(--primary-red) !important;
+        }
+        /* Show dropdown on hover */
+        .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        /* ==========================================
-           RIGHT SIDEBAR (TRENDING / मोस्ट रीड)
-           ========================================== */
-        .sidebar-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .widget-box {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-        }
-
-        .widget-title {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--jagran-dark);
-            border-left: 4px solid var(--jagran-red);
-            padding-left: 10px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .trending-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .trending-item {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            padding-bottom: 12px;
-            border-bottom: 1px dashed var(--border-color);
-        }
-
-        .trending-item:last-child { border: none; }
-
-        .rank-number {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--border-color);
-            min-width: 30px;
-        }
-
-        .trending-item a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .trending-item a:hover { color: var(--jagran-red); }
-
-        /* ==========================================
-           FIREBASE INTEGRATED CONTACT FORM WIDGET
-           ========================================== */
-        .contact-widget-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .contact-widget-form input, .contact-widget-form textarea {
-            width: 100%;
+        /* --- Breaking News Ticker --- */
+        .ticker-wrap {
+            background-color: var(--dark-gray);
+            color: white;
             padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 0.9rem;
-            outline: none;
+            display: flex;
+        }
+        .ticker-title {
+            background-color: var(--primary-red);
+            padding: 0 15px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .ticker-move {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+        }
+        .ticker-move p {
+            animation: ticker 15s linear infinite;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
-        .contact-widget-form button {
-            background-color: var(--jagran-red);
+        /* --- Main Content Grid --- */
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 70% 28%;
+            gap: 2%;
+        }
+        .news-card {
+            background: white;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .news-card h2 {
+            color: var(--dark-gray);
+            margin-bottom: 10px;
+        }
+        .news-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .read-more-btn {
+            background-color: var(--primary-red);
             color: white;
             border: none;
-            padding: 10px;
-            font-weight: bold;
-            border-radius: 4px;
+            padding: 8px 15px;
             cursor: pointer;
-            transition: background 0.2s;
+            margin-top: 10px;
+            font-weight: bold;
         }
 
-        .contact-widget-form button:hover { background-color: #991b1b; }
-
-        footer {
-            background-color: var(--jagran-dark);
-            color: #94a3b8;
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-            font-size: 0.9rem;
-            border-top: 5px solid var(--jagran-red);
+        /* --- Sidebar --- */
+        .sidebar {
+            background: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+        .sidebar h3 {
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+            list-style: none;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+        }
+        .sidebar ul li a:hover {
+            color: var(--primary-red);
         }
 
-        @media (max-width: 900px) {
-            .portal-container { grid-template-columns: 1fr; }
-            .hero-image { height: 260px; }
-        }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <div><i class="fa-regular fa-calendar-days"></i> <span id="currentDateSlot">June 2026</span></div>
-        <div>Ravi Vishwakarma Platform Hub</div>
+        <span>Edition: National</span>
+        <span id="live-date"></span>
     </div>
 
-    <div class="ticker-container">
-        <div class="ticker-label"><i class="fa-solid fa-circle-radiation"></i> ब्रेकिंग न्यूज़</div>
-        <div class="ticker-text">
-            <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
-                🚨 FIFA World Cup 2026 Qualifications Update: Match schedules and operational cloud matrix channels synced live! — 📊 Multi-tenant deployment system active on data1 node. — ⚡ Stay updated on premium resource packs download links below.
-            </marquee>
-        </div>
+    <div class="header">
+        <h1>Apna Jagran</h1>
+        <p>Aapki Khabar, Aapki Bhasha</p>
     </div>
 
-    <header class="main-header">
-        <div class="logo-area" onclick="switchJagranSection('mainDashboard')">
-            <h1>JAGRAN PORTAL</h1>
-            <span>RAVI VISHWAKARMA INOVATION HUB</span>
-        </div>
-        <div class="search-box">
-            <input type="text" placeholder="खोजें (Search items)...">
-            <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
-        </div>
-    </header>
-
-    <nav>
-        <ul class="nav-menu">
-            <li class="nav-item"><a href="#" class="nav-link" onclick="switchJagranSection('mainDashboard')">होम (Home)</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" onclick="switchJagranSection('mainDashboard')">राष्ट्रीय (National)</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" onclick="switchJagranSection('mainDashboard')">विदेश (World)</a></li>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#" onclick="showHomeAlert()">Home</a></li>
             
-            <li class="nav-item">
-                <a href="#" class="nav-link">FIFA 2026 <i class="fa-solid fa-chevron-down" style="font-size:0.75rem;"></i></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#" onclick="switchJagranSection('fifaTab1')">Page View 1</a></li>
-                    <li><a href="#" onclick="switchJagranSection('fifaTab2')">Page View 2</a></li>
-                    <li><a href="#" onclick="switchJagranSection('fifaTab3')">Page View 3</a></li>
-                    <li><a href="#" onclick="switchJagranSection('fifaTab4')">Page View 4</a></li>
-                    <li><a href="#" onclick="switchJagranSection('fifaTab5')">Page View 5</a></li>
-                </ul>
+            <li class="dropdown">
+                <a href="#">Rajya (States) ▼</a>
+                <div class="dropdown-content">
+                    <a href="#">Uttar Pradesh</a>
+                    <a href="#">Bihar</a>
+                    <a href="#">Madhya Pradesh</a>
+                    <a href="#">Delhi</a>
+                </div>
             </li>
 
-            <li class="nav-item"><a href="#" class="nav-link" onclick="switchJagranSection('mainDashboard')">मनोरंजन (Bollywood)</a></li>
+            <li class="dropdown">
+                <a href="#">Khel (Sports) ▼</a>
+                <div class="dropdown-content">
+                    <a href="#">Cricket</a>
+                    <a href="#">Football</a>
+                    <a href="#">Olympics</a>
+                </div>
+            </li>
+
+            <li><a href="#">Manoranjan</a></li>
+            <li><a href="#">Business</a></li>
         </ul>
     </nav>
 
-    <main class="portal-container">
+    <div class="ticker-wrap">
+        <div class="ticker-title">BREAKING</div>
+        <div class="ticker-move">
+            <p>🔴 T20 World Cup: Bharat ne jeeta romanchak match | 🔴 Naya budget kal hoga pesh, aam aadmi ko mili rahat | 🔴 Mausam vibhag ka alert, kai rajyon mein bhari barish ki sambhavna</p>
+        </div>
+    </div>
+
+    <div class="container">
         
-        <div class="left-content-area">
-
-            <div id="viewMainDashboard" class="category-view active-view">
-                <div class="hero-story-card">
-                    <div class="hero-image" style="background-image: url('aqw.jpg');">
-                        <a href="https://www.youtube.com/watch?v=YOUR_VIDEO" target="_blank" class="video-btn-play">
-                            <i class="fa-solid fa-circle-play"></i> वीडियो देखें (Watch Setup)
-                        </a>
-                    </div>
-                    <div class="hero-content">
-                        <span class="badge-tag">ट्रेन्डिंग प्रोजेक्ट</span>
-                        <h2 class="story-title">Stationery Management & Vlogging Studio Strategy Blueprints Released</h2>
-                        <p style="color: var(--text-muted); margin-bottom:15px;">Ravi Vishwakarma drops exclusive access logs for the master setup dashboard package complete with database templates.</p>
-                        <a href="materials_pack.zip" download class="download-action-btn" style="background-color: var(--jagran-red); display:inline-block; padding:10px 20px;">
-                            <i class="fa-solid fa-file-arrow-down"></i> डाउनलोड करें (Assets ZIP)
-                        </a>
-                    </div>
-                </div>
-
-                <div class="news-sub-grid">
-                    <div class="news-mini-card">
-                        <div class="mini-thumb" style="background-image: linear-gradient(to bottom, #1e3a8a, #0f172a);"></div>
-                        <div class="mini-content">
-                            <h3 class="mini-title">National Tech Framework Cloud Matrix Rollout across 28 states</h3>
-                            <a href="#" class="download-action-btn">विस्तार से पढ़ें</a>
-                        </div>
-                    </div>
-                    <div class="news-mini-card">
-                        <div class="mini-thumb" style="background-image: linear-gradient(to bottom, #b91c1c, #450a0a);"></div>
-                        <div class="mini-content">
-                            <h3 class="mini-title">World Analytics Report: High concurrency server configurations</h3>
-                            <a href="#" class="download-action-btn">विस्तार से पढ़ें</a>
-                        </div>
-                    </div>
-                </div>
+        <div class="main-news">
+            <div class="news-card">
+                <h2>Desh mein naye vikas karyon ki hui shuruat</h2>
+                <p>Aaj pradhanmantri ne kai nayi yojnao ka shilanyas kiya hai. Isse desh ke infrastructure ko bada boost milega aur rojgari ke naye avsar paida honge...</p>
+                <button class="read-more-btn" onclick="readMoreFunction('News 1')">Pura Padhein</button>
             </div>
 
-            <div id="viewFifaTab1" class="category-view">
-                <div class="hero-story-card" style="padding:40px; text-align:center;">
-                    <h2 class="story-title" style="color:var(--jagran-red);">🔴 FIFA 2026 - प्रथम पृष्ठ (Page 1)</h2>
-                    <p style="margin:20px 0; color:var(--text-muted);">Yeh FIFA Ka Pehla Main Channel Dashboard Layout Hai.</p>
-                    <div style="background:#f8fafc; padding:20px; border:1px solid var(--border-color); font-weight:bold;">⚽ Stadium Mapping & Ticket Routing Node 1 Loaded</div>
-                </div>
+            <div class="news-card">
+                <h2>Share Market mein aaj bhari uchhal</h2>
+                <p>Sensex aur Nifty ne aaj naye records banaye. IT aur Banking sectors ke shares mein sabse zyada tezi dekhi gayi. Niveshak kafi khush nazar aaye...</p>
+                <button class="read-more-btn" onclick="readMoreFunction('News 2')">Pura Padhein</button>
             </div>
-
-            <div id="viewFifaTab2" class="category-view">
-                <div class="hero-story-card" style="padding:40px; text-align:center;">
-                    <h2 class="story-title" style="color:#2563eb;">🔵 FIFA 2026 - द्वितीय पृष्ठ (Page 2)</h2>
-                    <p style="margin:20px 0; color:var(--text-muted);">Operational analytical updates rendered exclusively inside node 2 matrix view.</p>
-                    <div style="background:#f8fafc; padding:20px; border:1px solid var(--border-color); font-weight:bold;">📊 Match Metrics Analytics Sheet active</div>
-                </div>
-            </div>
-
-            <div id="viewFifaTab3" class="category-view">
-                <div class="hero-story-card" style="padding:40px; text-align:center;">
-                    <h2 class="story-title" style="color:#16a34a;">🟢 FIFA 2026 - तृतीय पृष्ठ (Page 3)</h2>
-                    <p style="margin:20px 0; color:var(--text-muted);">Database synchronization structures configurations terminal panel.</p>
-                    <div style="background:#f8fafc; padding:20px; border:1px solid var(--border-color); font-weight:bold;">⚙️ Cloud Firestore Clusters Status: Healthy</div>
-                </div>
-            </div>
-
-            <div id="viewFifaTab4" class="category-view">
-                <div class="hero-story-card" style="padding:40px; text-align:center;">
-                    <h2 class="story-title" style="color:#d97706;">🟡 FIFA 2026 - चतुर्थ पृष्ठ (Page 4)</h2>
-                    <p style="margin:20px 0; color:var(--text-muted);">Asset management and file storage distribution system workspace node.</p>
-                    <div style="background:#f8fafc; padding:20px; border:1px solid var(--border-color); font-weight:bold;">📁 Download Mirrors Asset Bundles 4 Active</div>
-                </div>
-            </div>
-
-            <div id="viewFifaTab5" class="category-view">
-                <div class="hero-story-card" style="padding:40px; text-align:center;">
-                    <h2 class="story-title" style="color:#7c3aed;">🟣 FIFA 2026 - पंचम पृष्ठ (Page 5)</h2>
-                    <p style="margin:20px 0; color:var(--text-muted);">Deployment system and core operational final ledger portal terminal.</p>
-                    <div style="background:#f8fafc; padding:20px; border:1px solid var(--border-color); font-weight:bold;">🚀 Global Live Stream Operational Feeds Active</div>
-                </div>
-            </div>
-
         </div>
 
-        <aside class="sidebar-panel">
-            
-            <div class="widget-box">
-                <div class="widget-title">मोस्ट रीड (Trending Stories)</div>
-                <ul class="trending-list">
-                    <li class="trending-item">
-                        <div class="rank-number">1</div>
-                        <a href="#">Ravi Vishwakarma new cloud template dashboard gets massive downloads peak.</a>
-                    </li>
-                    <li class="trending-item">
-                        <div class="rank-number">2</div>
-                        <a href="#">FIFA 2026 dynamic JavaScript structural router nodes launched.</a>
-                    </li>
-                    <li class="trending-item">
-                        <div class="rank-number">3</div>
-                        <a href="#">How to connect Firebase Firestore SDK using test credentials mode.</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="sidebar">
+            <h3>Top Trending News</h3>
+            <ul>
+                <li><a href="#">👉 Petrol-Diesel ke naye daam jaari</a></li>
+                <li><a href="#">👉 Bollywood ki nayi film ka trailer release</a></li>
+                <li><a href="#">👉 Chandrayaan mission par nayi update</a></li>
+                <li><a href="#">👉 Sone (Gold) ki kimaton mein girawat</a></li>
+            </ul>
+        </div>
 
-            <div class="widget-box">
-                <div class="widget-title">सूचना केंद्र (Send Query)</div>
-                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Direct instant data transmission to your real-time project console.</p>
-                
-                <form class="contact-widget-form" id="firebaseContactForm">
-                    <input type="text" id="userName" placeholder="आपका नाम (Your Name)" required>
-                    <input type="email" id="userEmail" placeholder="ईमेल (Your Email)" required>
-                    <textarea id="userMessage" rows="3" placeholder="संदेश (Your Message Here...)" required></textarea>
-                    <button type="submit" id="submitBtn">डेटा भेजें (Send Secure Payload)</button>
-                </form>
-            </div>
-
-        </aside>
-    </main>
-
-    <footer>
-        <p>Copyright © 2026 Ravi Vishwakarma Portal Hub · Jagran Style Infrastructure Matrix</p>
-    </footer>
-
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    </div>
 
     <script>
-        // Automatic Client Side Calendar Tracker Date View Injection
-        document.getElementById('currentDateSlot').innerText = new Date().toDateString();
-
-        /* Dynamic View Routing Swapper Engine Logic Block */
-        function switchJagranSection(targetSectionId) {
-            // Target elements extraction hide routine
-            const views = document.querySelectorAll('.category-view');
-            views.forEach(v => v.classList.remove('active-view'));
-
-            // Show calculated routing workspace viewport container
-            document.getElementById('view' + targetSectionId.charAt(0).toUpperCase() + targetSectionId.slice(1)).classList.add('active-view');
-            
-            // Layout View Focus Realignment reset to topmost baseline viewport position
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Function 1: Live Date & Time display
+        function updateDate() {
+            const dateElement = document.getElementById("live-date");
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.innerHTML = now.toLocaleDateString('hi-IN', options);
         }
 
-        /* Firebase Core Data System Integrations Credentials Payload Block */
-        const firebaseConfig = {
-            apiKey: "AIzaSyA4xhSb9Q0_64vavJ9HPPhH8UPWnie6TRg",
-            authDomain: "data1-430a9.firebaseapp.com",
-            projectId: "data1-430a9",
-            storageBucket: "data1-430a9.firebasestorage.app",
-            messagingSenderId: "899412092399",
-            appId: "1:899412092399:web:b9a7911174ffdbbdc2021a",
-            measurementId: "G-676R1N188Y"
+        // Function 2: Interaction alert for Read More button
+        function readMoreFunction(articleName) {
+            alert("Aap '" + articleName + "' ka poora article padhne ke liye naye page par redirect ho rahe hain.");
+            // Actual site par yahan window.location.href = 'article-url.html' hota hai
+        }
+
+        // Function 3: Simple Home Alert
+        function showHomeAlert() {
+            console.log("Home button clicked");
+        }
+
+        // Initialize functions jab page load ho
+        window.onload = function() {
+            updateDate();
+            // Yahan hum aur bhi complex JS functions add kar sakte hain jaise API calls se live news fetch karna.
         };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        /* Interactive Transaction Operations Handler Controller Submissions */
-        document.getElementById('firebaseContactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); 
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = "सुरक्षित भेजा जा रहा है...";
-            btn.disabled = true;
-
-            db.collection('contact_messages').add({
-                name: document.getElementById('userName').value,
-                email: document.getElementById('userEmail').value,
-                message: document.getElementById('userMessage').value,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            })
-            .then(() => {
-                alert('🎉 संदेश सफलतापूर्वक क्लाउड डेटाबेस (data1-430a9) में सहेज लिया गया है!');
-                document.getElementById('firebaseContactForm').reset(); 
-            })
-            .catch((error) => {
-                console.error("Transmission error logged: ", error);
-                alert('❌ डेटा भेजने में त्रुटि! कृपया फायरबेस नियमों की जांच करें।');
-            })
-            .finally(() => {
-                btn.innerText = "डेटा भेजें (Send Secure Payload)";
-                btn.disabled = false;
-            });
-        });
     </script>
+
 </body>
 </html>
